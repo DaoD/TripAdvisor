@@ -6,8 +6,6 @@
 		<title>Admin Sign In</title>
 		<link rel="stylesheet" type="text/css" href="../CSS/semantic.min.css">
 		<link rel="stylesheet" type="text/css" href="../CSS/Admin/signin.css">
-		<script src="../JS/jquery.min.js"></script>
-		<script src="../JS/semantic.min.js"></script>
 	</head>
 	<body>
 		<div class="ui fixed menu">
@@ -44,4 +42,6 @@
 			</div>
 		</div>
 	</body>
+	<script src="../JS/jquery.min.js"></script>
+	<script src="../JS/semantic.min.js"></script>
 </html>

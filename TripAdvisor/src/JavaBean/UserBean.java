@@ -1,10 +1,11 @@
+package JavaBean;
 
 public class UserBean {
 	private String username;
 	private String password;
-	private String password2;
 	private String nickname;
 	private String email;
+	private int type;
 	
 	public String getUsername() {
 		return username;
@@ -18,12 +19,6 @@ public class UserBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPassword2() {
-		return password2;
-	}
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -35,6 +30,12 @@ public class UserBean {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 }
