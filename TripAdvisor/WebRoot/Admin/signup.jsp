@@ -1,10 +1,11 @@
+<%@ page contentType="text/html; charset=utf-8" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Admin Login</title>
+		<title>Admin Sign Up</title>
 		<link rel="stylesheet" type="text/css" href="../CSS/semantic.min.css">
-		<link rel="stylesheet" type="text/css" href="../CSS/Admin/login.css">
+		<link rel="stylesheet" type="text/css" href="../CSS/Admin/signup.css">
 		<script src="../JS/jquery.min.js"></script>
 		<script src="../JS/semantic.min.js"></script>
 	</head>
@@ -17,7 +18,7 @@
 			<div class="column">
 				<h2 class="ui teal image header">
 				  	<div class="content">
-				    	Log in
+				    	Sign Up
 				  	</div>
 				</h2>
 				<form class="ui large form" action="" method="post">
@@ -34,12 +35,29 @@
 					        	<input type="password" name="password" placeholder="password">
 					      	</div>
 					    </div>
-				    	<input type="submit" class="ui fluid large teal submit button" value="log in" />
+					    <div class="field">
+					      	<div class="ui left icon input">
+					        	<i class="lock icon"></i>
+					        	<input type="password" name="password2" placeholder="password again">
+					      	</div>
+					    </div>
+					    <div class="field">
+					      	<div class="ui left icon input">
+					        	<i class="smile icon"></i>
+					        	<input type="text" name="nickname" placeholder="nickname">
+					      	</div>
+					    </div>
+					    <div class="field">
+					      	<div class="ui left icon input">
+					        	<i class="mail outline icon"></i>
+					        	<input type="text" name="email" placeholder="email">
+					      	</div>
+					    </div>
+				    	<input type="submit" class="ui fluid large teal submit button" value="sign up" />
 				  	</div>
 				</form>
 				<div class="ui message">
-			    	New ? <a href="">Sign up now</a>
-			    
+			    	Already have an account ? <a href="">Sign in</a>
 			    </div>
 			</div>
 		</div>
