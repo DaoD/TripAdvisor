@@ -31,7 +31,7 @@ public class UserRegisterBean {
 		int type = userBean.getType();
 		try {
 			Statement stmt = conn.createStatement();
-			String queryline = "select username from user where username = \'" + username + "\'";
+			String queryline = "select username from user where username = \'" + username + "\' or nickname = \'" + nickname + "\'";
 			ResultSet rs = stmt.executeQuery(queryline);
 			if (rs.next()) {
 				return 1;
