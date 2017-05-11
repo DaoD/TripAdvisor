@@ -19,7 +19,7 @@
 				    	Sign in
 				  	</div>
 				</h2>
-				<form class="ui large form" action="" method="post">
+				<form class="ui large form" action="check.jsp" method="post">
 				  	<div class="ui stacked segment">
 				    	<div class="field">
 				      		<div class="ui left icon input">
@@ -33,6 +33,7 @@
 					        	<input type="password" name="password" placeholder="password">
 					      	</div>
 					    </div>
+					    <input type="hidden" name="type" value="0" />
 				    	<input type="submit" class="ui fluid large teal submit button" value="log in" />
 				  	</div>
 				</form>
