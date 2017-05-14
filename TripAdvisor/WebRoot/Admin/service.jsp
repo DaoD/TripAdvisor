@@ -14,9 +14,32 @@
 			<div class="active item">Admin</div>
 			<div class="right menu">
 				<div class="item"><% out.print((String)session.getAttribute("username")); %></div>
-				<a class="item" href="signin.jsp">Sign Out</a>
+				<a class="item" href="signout.jsp">Sign Out</a>
 			</div>
 		</div>
+		<% 
+			String username = (String)session.getAttribute("username");
+			if(username == null) {
+				%> 
+					<div class="ui middle aligned center aligned grid">
+						<div class="left aligned column">
+							<div class="ui negative message">
+								<div class="header">
+									Error
+								</div>
+								<p>
+									Sign in time out or something error with this page. Please sign in again.
+									<br/>
+									 <a href="signin.jsp">Return</a> to sign in page.
+								</p>
+							</div>
+						</div>
+					</div>
+				
+				<%
+			}
+			else {
+		%>
 		<div class="ui grid" id="mainframe">
 			<div class="row">
 				<div class="four wide column">
@@ -44,17 +67,6 @@
 							<h4 class="ui dividing header">
 								Service list
 							</h4>
-<!-- 							<div class="ui middle aligned divided list"> -->
-<!-- 								<div class="item"> -->
-<!-- 									<div class="right floated content"> -->
-<!-- 										<div class="ui button">Delete</div> -->
-<!-- 									</div> -->
-<!-- 									<div class="content"> -->
-<!-- 										<div class="header">Service Name</div> -->
-<!-- 										<div class="description">Add time: 2017/05/01</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
 							<table class="ui very basic selectable celled table">
 								<thead>
 									<tr>
@@ -78,7 +90,7 @@
 				</div>
 			</div>	
 		</div>
-		
+		<% } %>
 	</body>
 	<script src="../JS/jquery.min.js"></script>
 	<script src="../JS/semantic.min.js"></script>

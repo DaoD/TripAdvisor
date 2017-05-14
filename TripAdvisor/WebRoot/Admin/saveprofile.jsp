@@ -1,7 +1,8 @@
+<%@page import="JavaBean.UserProfileOperateBean"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.sql.*" %>
 <jsp:useBean id="userProfileBean" class="JavaBean.UserProfileBean" scope="request" />
-<jsp:useBean id="userprofileSaveBean" class="JavaBean.UserProfileSaveBean" scope="request" />
+<jsp:useBean id="userProfileOperateBean" class="JavaBean.UserProfileOperateBean" scope="request" />
 
 <!DOCTYPE html>
 <html>
@@ -37,9 +38,9 @@
 					userProfileBean.setZipcode(zipcode);
 					
 					try {
-						userprofileSaveBean.setUserProfileBean(userProfileBean);
-						if(userprofileSaveBean.save()) {
-// 							response.addHeader("refresh", "60; URL=main.jsp");
+						userProfileOperateBean.setUserProfileBean(userProfileBean);
+						if(userProfileOperateBean.save()) {
+							response.addHeader("refresh", "180; URL=main.jsp");
 							response.sendRedirect("main.jsp");
 	 						return ;
 	 					}

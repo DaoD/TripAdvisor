@@ -1,14 +1,14 @@
 package JavaBean;
 import java.sql.*;
 
-public class UserProfileSaveBean {
+public class UserProfileOperateBean {
 	private UserProfileBean userProfileBean;
 	private Connection conn;
 	
-	public UserProfileSaveBean() {
+	public UserProfileOperateBean() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tripadvisor", "root", "zyt123456");
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tripadvisor?useSSL=true", "root", "zyt123456");
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -56,6 +56,32 @@ public class UserProfileSaveBean {
 			// TODO: handle exception
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public void getProfile(int userid) {
+		try {
+			Statement stmt = conn.createStatement();
+			String queryline = "select * from profile where userid = \'" + userid + "\'";
+			ResultSet rs = stmt.executeQuery(queryline);
+			if(rs.next()) {
+				userProfileBean.setCompanyName(rs.getString("companyname"));
+				userProfileBean.setContactNumber(rs.getString("contactnumber"));
+				userProfileBean.setCountry(rs.getString("country"));
+				userProfileBean.setState(rs.getString("state"));
+				userProfileBean.setAddress(rs.getString("address"));
+				userProfileBean.setZipcode(rs.getString("zipcode"));
+			}
+			else {
+				userProfileBean.setCompanyName("");
+				userProfileBean.setContactNumber("");
+				userProfileBean.setCountry("");
+				userProfileBean.setState("");
+				userProfileBean.setAddress("");
+				userProfileBean.setZipcode("");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

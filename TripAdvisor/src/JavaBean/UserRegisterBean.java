@@ -8,7 +8,7 @@ public class UserRegisterBean {
 	public UserRegisterBean() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tripadvisor", "root", "zyt123456");
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tripadvisor?useSSL=true", "root", "zyt123456");
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

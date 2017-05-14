@@ -12,3 +12,11 @@ body > .grid {
 .ui.segment {
 	max-height: 550px;
 }
+.left.aligned.column {
+	max-width: 600px;
+}
+#lock {
+	position: absolute;
+	top: 2rem;
+	right: 0rem;
+}
