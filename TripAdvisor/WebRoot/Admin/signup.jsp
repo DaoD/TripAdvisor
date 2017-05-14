@@ -41,12 +41,6 @@
 					    </div>
 					    <div class="field">
 					      	<div class="ui left icon input">
-					        	<i class="smile icon"></i>
-					        	<input type="text" name="nickname" placeholder="nickname" required>
-					      	</div>
-					    </div>
-					    <div class="field">
-					      	<div class="ui left icon input">
 					        	<i class="mail outline icon"></i>
 					        	<input type="text" name="email" placeholder="email" required>
 					      	</div>

@@ -22,13 +22,11 @@
 					String username = request.getParameter("username");
 					String password = request.getParameter("password");
 					String email = request.getParameter("email");
-					String nickname = request.getParameter("nickname");
 					int type = Integer.parseInt(request.getParameter("type"));
 					
 					userBean.setUsername(username);
 					userBean.setPassword(password);
 					userBean.setEmail(email);
-					userBean.setNickname(nickname);
 					userBean.setType(type);
 					
 					try {
@@ -40,7 +38,7 @@
 								Error
 							</div>
 							<p>
-								Your username or nickname has been already used. Please try again.
+								Your username has been already used. Please try again.
 								<br/>
 								 <a href="signup.jsp">Return</a> to sign up page.
 							</p>

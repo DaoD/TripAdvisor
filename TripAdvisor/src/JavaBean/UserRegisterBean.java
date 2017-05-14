@@ -8,7 +8,7 @@ public class UserRegisterBean {
 	public UserRegisterBean() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tripadvisor", "root", "zyt5023767");
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tripadvisor", "root", "zyt123456");
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -27,11 +27,10 @@ public class UserRegisterBean {
 		String username = userBean.getUsername();
 		String password = userBean.getPassword();
 		String email = userBean.getEmail();
-		String nickname = userBean.getNickname();
 		int type = userBean.getType();
 		try {
 			Statement stmt = conn.createStatement();
-			String queryline = "select username from user where username = \'" + username + "\' or nickname = \'" + nickname + "\'";
+			String queryline = "select username from user where username = \'" + username + "\'";
 			ResultSet rs = stmt.executeQuery(queryline);
 			if (rs.next()) {
 				stmt.close();
@@ -39,8 +38,8 @@ public class UserRegisterBean {
 				return 1;
 			}
 			else {
-				String addline = "insert into user(`username`, `password`, `email`, `nickname`, `type`) values (\'" 
-						+ username + "\',md5(\'" + password + "\'),\'" + email + "\',\'" + nickname + "\',\'" + type + "\')";
+				String addline = "insert into user(`username`, `password`, `email`, `type`) values (\'" 
+						+ username + "\',md5(\'" + password + "\'),\'" + email + "\',\'" + type + "\')";
 				stmt.executeUpdate(addline);
 				stmt.close();
 				conn.close();
@@ -53,29 +52,29 @@ public class UserRegisterBean {
 		}
 	}
 	
-	public String check() {
+	public int check() {
 		String username = userBean.getUsername();
 		String password = userBean.getPassword();
 		int type = userBean.getType();
 		try {
 			Statement stmt = conn.createStatement();
-			String queryline = "select username, password, nickname from user where username=\'" + username + "\' and password=md5(\'" + password + "\')";
+			String queryline = "select userid, username, password from user where username=\'" + username + "\' and password=md5(\'" + password + "\')";
 			ResultSet rs = stmt.executeQuery(queryline);
 			if(rs.next()) {
-				String nickname = rs.getString("nickname");
+				int userid = Integer.parseInt(rs.getString("userid"));
 				stmt.close();
 				conn.close();
-				return nickname;
+				return userid;
 			}
 			else {
 				stmt.close();
 				conn.close();
-				return null;
+				return 0;
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return null;
+			return 0;
 		}
 	}
 }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.sql.*" %>
-<jsp:useBean id="userBean" class="JavaBean.UserBean" scope="session" />
-<jsp:useBean id="UserRegisterBean" class="JavaBean.UserRegisterBean" scope="session" />
+<jsp:useBean id="userBean" class="JavaBean.UserBean" scope="request" />
+<jsp:useBean id="UserRegisterBean" class="JavaBean.UserRegisterBean" scope="request" />
 
 <!DOCTYPE html>
 <html>
@@ -26,9 +26,10 @@
 				userBean.setType(type);
 				try {
 					UserRegisterBean.setUserBean(userBean);
-					String nickname = UserRegisterBean.check();
-					if(nickname != null) {
-						session.setAttribute("nickname", nickname);
+					int userid = UserRegisterBean.check();
+					if(userid != 0) {
+						session.setAttribute("username", username);
+						session.setAttribute("userid", userid);
 						response.sendRedirect("main.jsp");
  						return ;
 					}
