@@ -18,3 +18,14 @@ CREATE TABLE profile (
   INDEX (userid),
   FOREIGN KEY (userid) REFERENCES user(userid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE service (
+	serviceid int(10) NOT NULL AUTO_INCREMENT,
+	userid int(10) NOT NULL,
+	servicename char(50) NOT NULL,
+	wsdladdress char(100) NOT NULL,
+	addtime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	note text,
+	FOREIGN KEY (userid) REFERENCES user(userid),
+	PRIMARY KEY(serviceid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
