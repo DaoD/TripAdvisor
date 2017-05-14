@@ -28,7 +28,6 @@
 					String address = request.getParameter("companyAddress");
 					String zipcode = request.getParameter("ZIPCode");
 					
-					System.out.println(userid);
 					userProfileBean.setUserid(userid);
 					userProfileBean.setCompanyName(companyname);
 					userProfileBean.setContactNumber(contactnumber);
@@ -40,7 +39,6 @@
 					try {
 						userProfileOperateBean.setUserProfileBean(userProfileBean);
 						if(userProfileOperateBean.save()) {
-							response.addHeader("refresh", "180; URL=main.jsp");
 							response.sendRedirect("main.jsp");
 	 						return ;
 	 					}
@@ -51,7 +49,7 @@
 								Error
 							</div>
 							<p>
-								Something error with saving, please check your information and try again. <a href="main.jsp">Go back</a> now.
+								Something error with save operation, please check your information and try again. <a href="main.jsp">Go back</a> now.
 							</p>
 						</div>
 						

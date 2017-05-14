@@ -1,4 +1,9 @@
+<%@page import="JavaBean.ServiceBean"%>
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ page import="java.util.*" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<jsp:useBean id="serviceBean" class="JavaBean.ServiceBean" scope="request" />
+<jsp:useBean id="serviceOperateBean" class="JavaBean.ServiceOperateBean" scope="request" />
 
 <!DOCTYPE html>
 <html>
@@ -39,6 +44,9 @@
 				<%
 			}
 			else {
+				int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
+				List<ServiceBean> servicelist = serviceOperateBean.getAllServices(userid);
+				request.setAttribute("servicelist", servicelist); 
 		%>
 		<div class="ui grid" id="mainframe">
 			<div class="row">
@@ -50,42 +58,55 @@
 				</div>
 				<div class="twelve wide stretched column">
 					<div class="ui segment">
-						<form class="ui form" action="">
+						<form class="ui form" action="addservice.jsp">
 							<h4 class="ui dividing header">
 								Add Service	
 							</h4>
-							<div class="twelve wide field">
-								<div class="ui action labeled input">
-									<div class="ui label">http://</div>
-									<input type="text" placeholder="wsdl file address">
-									<button class="ui teal right labeled icon button">
-										<i class="plus icon"></i>
-										Add
-									</button>
+							<div class="fields">
+								<div class="four wide field">
+									<input type="text" placeholder="Service Name" name="servicename" required>
+								</div>
+								<div class="twelve wide field">
+									<div class="ui action labeled input">
+										<div class="ui label">http://</div>
+										<input type="text" placeholder="wsdl file address" name="wsdladdress" required>
+										<button class="ui teal right labeled icon button">
+											<i class="plus icon"></i>
+											Add
+										</button>
+									</div>
 								</div>
 							</div>
-							<h4 class="ui dividing header">
+							<div class="field">
+							    <textarea rows="3" placeholder="Note" name="note"></textarea>
+							</div>
+							<input type="hidden" name="userid" value="<% out.print(session.getAttribute("userid")); %>">
+						</form>
+						<h4 class="ui dividing header">
 								Service list
 							</h4>
 							<table class="ui very basic selectable celled table">
 								<thead>
 									<tr>
 										<th>Name</th>
+										<th>WSDL Address</th>
 										<th>Add Time</th>
 										<th>Notes</th>
 										<th>Operation</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>Test1</td>	
-										<td>2017/05/01</td>
-										<td></td>
-										<td><a href="">Delete</a></td>
-									</tr>
+									<c:forEach items="${servicelist}" var="service">
+										<tr>
+											<td>${service.servicename}</td>	
+											<td>${service.wsdladdress}</td>
+											<td>${service.addtime}</td>
+											<td>${service.note}</td>
+											<td><a href="">Delete</a></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
-						</form>
 					</div>
 				</div>
 			</div>	
