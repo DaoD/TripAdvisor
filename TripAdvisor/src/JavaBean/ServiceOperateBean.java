@@ -62,6 +62,7 @@ public class ServiceOperateBean {
 			ResultSet rs = stmt.executeQuery(queryline);
 			while(rs.next()) {
 				ServiceBean serviceBean = new ServiceBean();
+				serviceBean.setServiceid(Integer.parseInt(rs.getString("serviceid")));
 				serviceBean.setServicename(rs.getString("servicename"));
 				serviceBean.setWsdladdress(rs.getString("wsdladdress"));
 				serviceBean.setAddtime(rs.getString("addtime"));
@@ -74,7 +75,20 @@ public class ServiceOperateBean {
 			e.printStackTrace();
 			return null;
 		}
-		
-		
+	}
+	
+	public boolean deleteService(int serviceid) {
+		try {
+			Statement stmt = conn.createStatement();
+			String deleteline = "delete from service where serviceid = \'" + serviceid + "\'";
+			stmt.executeUpdate(deleteline);
+			stmt.close();
+			conn.close();
+			return true;
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

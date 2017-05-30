@@ -11,7 +11,7 @@
 		<div class="ui fixed menu">
 			<div class="header item">TripAdvisor</div>
 			<a class="item" href="../homepage.jsp">Homepage</a>
-			<div class="active item">Admin</div>
+			<div class="active item">Client</div>
 		</div>
 		<div class="ui middle aligned center aligned grid">
 			<div class="column">

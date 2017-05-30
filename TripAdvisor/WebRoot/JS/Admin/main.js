@@ -14,9 +14,3 @@ $('.ui.checkbox')
 	}
 })
 ;
-//
-//$('.ui.checkbox').click(function(){
-//	
-//	checked = $('.ui.checkbox').checked;
-//	alert(checked);
-//});

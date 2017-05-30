@@ -1,6 +1,8 @@
 package JavaBean;
 import java.sql.*;
 
+import org.apache.taglibs.standard.lang.jstl.AndOperator;
+
 public class UserRegisterBean {
 	private UserBean userBean;
 	private Connection conn;
@@ -30,7 +32,7 @@ public class UserRegisterBean {
 		int type = userBean.getType();
 		try {
 			Statement stmt = conn.createStatement();
-			String queryline = "select username from user where username = \'" + username + "\'";
+			String queryline = "select username from user where username = \'" + username + "\' and type = \'" + type + "\'";
 			ResultSet rs = stmt.executeQuery(queryline);
 			if (rs.next()) {
 				stmt.close();
@@ -58,7 +60,7 @@ public class UserRegisterBean {
 		int type = userBean.getType();
 		try {
 			Statement stmt = conn.createStatement();
-			String queryline = "select userid, username, password from user where username=\'" + username + "\' and password=md5(\'" + password + "\')";
+			String queryline = "select userid, username, password from user where username=\'" + username + "\' and password=md5(\'" + password + "\') and type = \'" + type + "\'";
 			ResultSet rs = stmt.executeQuery(queryline);
 			if(rs.next()) {
 				int userid = Integer.parseInt(rs.getString("userid"));

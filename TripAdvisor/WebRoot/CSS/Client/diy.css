@@ -1,0 +1,17 @@
+#mainframe {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+body > .grid {
+    height: 100%;
+}
+.left.aligned.column {
+	max-width: 600px;
+}
+.ui.card {
+	box-shadow: none;
+}
+#submitbutton{
+	display: none;
+}

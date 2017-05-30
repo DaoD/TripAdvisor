@@ -1,0 +1,21 @@
+body {
+    /* background-color: #DADADA; */
+}
+body > .grid {
+    height: 100%;
+}
+.left.aligned.column {
+	max-width: 600px;
+}
+#maincontainer {
+	padding-top: 80px;
+}
+.ui.container h3 {
+	font-size: 2em;
+}
+.ui.container p {
+	font-size: 1.33em;
+}
+.ui.vertical.stripe {
+	padding-top: 8em;
+}

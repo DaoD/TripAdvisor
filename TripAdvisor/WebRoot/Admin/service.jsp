@@ -1,7 +1,7 @@
-<%@page import="JavaBean.ServiceBean"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ page import="JavaBean.ServiceBean"%>
 <jsp:useBean id="serviceBean" class="JavaBean.ServiceBean" scope="request" />
 <jsp:useBean id="serviceOperateBean" class="JavaBean.ServiceOperateBean" scope="request" />
 
@@ -26,7 +26,7 @@
 			String username = (String)session.getAttribute("username");
 			if(username == null) {
 				%> 
-					<div class="ui middle aligned center aligned grid">
+					<div class="ui middle aligned center aligned grid" id="message">
 						<div class="left aligned column">
 							<div class="ui negative message">
 								<div class="header">
@@ -56,7 +56,7 @@
 						<a class="active item" href="service.jsp">Service</a>
 					</div>
 				</div>
-				<div class="twelve wide stretched column">
+				<div class="twelve wide stretched column" id="stickypart">
 					<div class="ui segment">
 						<form class="ui form" action="addservice.jsp">
 							<h4 class="ui dividing header">
@@ -83,30 +83,30 @@
 							<input type="hidden" name="userid" value="<% out.print(session.getAttribute("userid")); %>">
 						</form>
 						<h4 class="ui dividing header">
-								Service list
-							</h4>
-							<table class="ui very basic selectable celled table">
-								<thead>
+							Service list
+						</h4>
+						<table class="ui very basic selectable celled table">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>WSDL Address</th>
+									<th>Add Time</th>
+									<th>Notes</th>
+									<th>Operation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${servicelist}" var="service">
 									<tr>
-										<th>Name</th>
-										<th>WSDL Address</th>
-										<th>Add Time</th>
-										<th>Notes</th>
-										<th>Operation</th>
+										<td>${service.servicename}</td>	
+										<td>${service.wsdladdress}</td>
+										<td>${service.addtime}</td>
+										<td>${service.note}</td>
+										<td class="selectable"><a href="deleteservice.jsp?serviceid=${service.serviceid}">Delete</a></td>
 									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${servicelist}" var="service">
-										<tr>
-											<td>${service.servicename}</td>	
-											<td>${service.wsdladdress}</td>
-											<td>${service.addtime}</td>
-											<td>${service.note}</td>
-											<td><a href="">Delete</a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>	

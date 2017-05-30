@@ -1,16 +1,10 @@
 body {
     background-color: #DADADA;
 }
-body > .grid {
-    height: 100%;
-}
 #mainframe {
 	max-width: 1200px;
 	margin: 0 auto;
 	padding-top: 50px;
-}
-.ui.segment {
-	max-height: 550px;
 }
 .left.aligned.column {
 	max-width: 600px;
@@ -19,4 +13,7 @@ body > .grid {
 	position: absolute;
 	top: 2rem;
 	right: 0rem;
+}
+#message {
+	height: 100%;
 }

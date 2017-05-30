@@ -1,6 +1,6 @@
 CREATE TABLE user (
   userid int(10) NOT NULL AUTO_INCREMENT,
-  username char(50) NOT NULL UNIQUE,
+  username char(50) NOT NULL,
   password char(50) NOT NULL,
   email char(30) NOT NULL,
   type smallint(2) NOT NULL,
