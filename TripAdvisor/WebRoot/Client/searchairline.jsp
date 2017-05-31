@@ -19,6 +19,8 @@
 			String departdate = request.getParameter("departdate");
 			String number = request.getParameter("number");
 			String flightclass = request.getParameter("class");
+			String startprice = request.getParameter("startprice");
+			String endprice = request.getParameter("endprice");
 			String isfirst = request.getParameter("first");
 			
 			List<AirlineBean> airlinelist = airlineOperateBean.getAllAirlines();
@@ -27,6 +29,8 @@
 			request.setAttribute("departdate", departdate);
 			request.setAttribute("number", number);
 			request.setAttribute("flightclass", flightclass);
+			request.setAttribute("startprice", startprice);
+			request.setAttribute("endprice", endprice);
 			request.setAttribute("airlinelist", airlinelist); 
 			
 			if(isfirst.equals("0")) {

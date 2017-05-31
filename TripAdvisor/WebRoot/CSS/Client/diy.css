@@ -12,6 +12,9 @@ body > .grid {
 .ui.card {
 	box-shadow: none;
 }
-#submitbutton{
+#submitbutton {
 	display: none;
+}
+#listsubmit {
+	margin: .875em .5em;
 }

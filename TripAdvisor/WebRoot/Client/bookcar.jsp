@@ -144,23 +144,23 @@
 					</tbody>
 				</table>
 				<h4 class="ui dividing header">Car Information</h4>
-				<div class="ui card">
-					<div class="content"">
-						<div class="header" id="cardheader"></div>
-						<div class="meta" id="cardmeta"></div>
-						<div class="description" id="carddescription"></div>
+				<form action="bookacar.jsp">
+					<div class="ui card">
+						<div class="content"">
+							<div class="header" id="cardheader"></div>
+							<div class="meta" id="cardmeta"></div>
+							<div class="description" id="carddescription"></div>
+						</div>
+						<button class="ui bottom attached button" id="submitbutton">
+							<i class="add to calendar icon"></i>
+							Book it!
+						</button>
+<!-- 						<input type="hidden" value="" name="flightno"> -->
+<!-- 						<input type="hidden" value="" name="flightclass"> -->
+<!-- 						<input type="hidden" value="" name="date"> -->
+<!-- 						<input type="hidden" value="" name="number"> -->
+<!-- 						<input type="hidden" value="" name="price"> -->
 					</div>
-				</div>
-				<form action="bookhotel.jsp">
-<!-- 					<input type="hidden" value="" name="flightno"> -->
-<!-- 					<input type="hidden" value="" name="flightclass"> -->
-<!-- 					<input type="hidden" value="" name="date"> -->
-<!-- 					<input type="hidden" value="" name="number"> -->
-<!-- 					<input type="hidden" value="" name="price"> -->
-					<button class="ui teal right labeled icon button" id="submitbutton">
-						<i class="add to calendar icon"></i>
-						Book it!
-					</button>
 				</form>
 				<h4 class="ui dividing header">Skip this step</h4>
 				<a href="bookattractions.jsp" class="ui button">Skip</a>

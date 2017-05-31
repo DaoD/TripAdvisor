@@ -46,17 +46,35 @@
 				<%
 			}
 			else {
-// 				request.getAttribute("airlinelist"); 
+				request.getAttribute("hotellist"); 
+				if(request.getAttribute("city") == null) {
+					request.setAttribute("city", "");
+				}
+				if(request.getAttribute("fromdate") == null) {
+					request.setAttribute("fromdate", "");
+				}
+				if(request.getAttribute("todate") == null) {
+					request.setAttribute("todate", "");
+				}
+				if(request.getAttribute("number") == null) {
+					request.setAttribute("number", "");
+				}
+				if(request.getAttribute("startprice") == null) {
+					request.setAttribute("startprice", "");
+				}
+				if(request.getAttribute("endprice") == null) {
+					request.setAttribute("endprice", "");
+				}
 		%>
 		<div class="ui container" id="mainframe">
 			<div class="ui segment">
 				<form class="ui form" action="searchhotel.jsp">
 					<h4 class="ui dividing header">Choose your hotel</h4>
 					<div class="fields">
-						<div class="four wide field">
+						<div class="four wide required field">
 							<label>City</label>
 							<div class="ui selection dropdown">
-								<input type="hidden" name="fromcity">
+								<input type="hidden" name="city" value="<% out.print(request.getAttribute("city")); %>">
 								<i class="dropdown icon"></i>
 								<div class="default text">City</div>
 								<div class="menu">
@@ -69,14 +87,14 @@
 								</div>
 							</div>		
 						</div>
-						<div class="six wide field">
+						<div class="six wide required field">
 							<label>Date</label>
 							<div class="two fields">
 								<div class="field">
 									<div class="ui calendar">
 										<div class="ui input left icon">
 											<i class="calendar icon"></i>
-											<input type="text" placeholder="Check in date" name="fromdate"> 
+											<input type="text" placeholder="Check in date" name="fromdate" value="<% out.print(request.getAttribute("fromdate")); %>" required> 
 										</div>
 									</div>
 								</div>
@@ -84,7 +102,7 @@
 									<div class="ui calendar">
 										<div class="ui input left icon">
 											<i class="calendar icon"></i>
-											<input type="text" placeholder="Check out date" name="todate"> 
+											<input type="text" placeholder="Check out date" name="todate" value="<% out.print(request.getAttribute("todate")); %>" required> 
 										</div>
 									</div>
 								</div>
@@ -96,16 +114,16 @@
 							<label>Price range</label>
 							<div class="two fields">
 								<div class="field">
-									<input type="text" name="startprice" placeholder="Price start">
+									<input type="text" name="startprice" placeholder="Price start" value="<% out.print(request.getAttribute("startprice")); %>">
 								</div>
 								<div class="field">
-									<input type="text" name="endprice" placeholder="Price end">
+									<input type="text" name="endprice" placeholder="Price end" value="<% out.print(request.getAttribute("endprice")); %>">
 								</div>
 							</div>
 						</div>
-						<div class="three wide field">
+						<div class="three wide required field">
 							<label>Number</label>
-							<input type="text" placeholder="number" name="number">
+							<input type="text" placeholder="number" name="number" value="<% out.print(request.getAttribute("number")); %>" required>
 						</div>
 					</div>
 					<input type="hidden" name="first" value="1">
@@ -127,40 +145,37 @@
 						</tr>
 					</thead>
 					<tbody>
-<%-- 						<c:forEach items="${airlinelist}" var="airline"> --%>
-<!-- 							<tr> -->
-<%-- 								<td id="flightno${airline.id}">${airline.flightno}</td> --%>
-<%-- 								<td id="airline${airline.id}">${airline.airline}</td> --%>
-<%-- 								<td hidden="hidden" id="fromcity${airline.id}">${airline.fromcity}</td> --%>
-<%-- 								<td hidden="hidden" id="tocity${airline.id}">${airline.tocity}</td> --%>
-<%-- 								<td id="flightclass${airline.id}">${airline.flightclass}</td> --%>
-<%-- 								<td id="departtime${airline.id}">${airline.departtime}</td> --%>
-<%-- 								<td id="arrivetime${airline.id}">${airline.arrivetime}</td> --%>
-<%-- 								<td id="flighttime${airline.id}">${airline.flighttime}</td> --%>
-<%-- 								<td id="price${airline.id}">${airline.price}</td> --%>
-<%-- 								<td class="selectable"><a onclick="book(${airline.id});">Book</a></td> --%>
-<!-- 							</tr> -->
-<%-- 						</c:forEach> --%>
+						<c:forEach items="${hotellist}" var="hotel">
+							<tr>
+								<td id="hotelname${hotel.id}">${hotel.name}</td>
+								<td id="address${hotel.id}">${hotel.address}</td>
+								<td id="star${hotel.id}">${hotel.star}</td>
+								<td id="roomtype${hotel.id}">${hotel.roomtype}</td>
+								<td id="price${hotel.id}">${hotel.price}</td>
+								<td class="selectable"><a onclick="bookhotel(${hotel.id});">Book</a></td>
+								<td hidden="hidden" id="location${hotel.id}">${hotel.location}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<h4 class="ui dividing header">Hotel Information</h4>
-				<div class="ui card">
-					<div class="content"">
-						<div class="header" id="cardheader"></div>
-						<div class="meta" id="cardmeta"></div>
-						<div class="description" id="carddescription"></div>
+				<form action="bookahotel.jsp">
+					<div class="ui card">
+						<div class="content"">
+							<div class="header" id="cardheader"></div>
+							<div class="meta" id="cardmeta"></div>
+							<div class="description" id="carddescription"></div>
+						</div>
+						<button class="ui bottom attached button" id="submitbutton">
+							<i class="add to calendar icon"></i>
+							Book it!
+						</button>
+<!-- 						<input type="hidden" value="" name="flightno"> -->
+<!-- 						<input type="hidden" value="" name="flightclass"> -->
+<!-- 						<input type="hidden" value="" name="date"> -->
+<!-- 						<input type="hidden" value="" name="number"> -->
+<!-- 						<input type="hidden" value="" name="price"> -->
 					</div>
-				</div>
-				<form action="bookhotel.jsp">
-<!-- 					<input type="hidden" value="" name="flightno"> -->
-<!-- 					<input type="hidden" value="" name="flightclass"> -->
-<!-- 					<input type="hidden" value="" name="date"> -->
-<!-- 					<input type="hidden" value="" name="number"> -->
-<!-- 					<input type="hidden" value="" name="price"> -->
-					<button class="ui teal right labeled icon button" id="submitbutton">
-						<i class="add to calendar icon"></i>
-						Book it!
-					</button>
 				</form>
 				<h4 class="ui dividing header">Skip this step</h4>
 				<a href="bookcar.jsp" class="ui button">Skip</a>

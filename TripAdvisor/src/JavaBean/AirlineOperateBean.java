@@ -24,10 +24,9 @@ public class AirlineOperateBean {
 		this.airlineBean = airlineBean;
 	}
 	
-	public List<AirlineBean> getAllAirlines() {
+	private List<AirlineBean> getAirlineByCompany(String url) {
 		OMElement result = null;  
-        try {  
-            String url = "http://10.79.10.65:8080/axis2/services/EasternAirlineServices?wsdl";  
+		try {  
 
             Options options = new Options();   
             EndpointReference targetEPR = new EndpointReference(url);  
@@ -96,5 +95,20 @@ public class AirlineOperateBean {
             axisFault.printStackTrace();  
             return null;
         }  
+	}
+	
+	public List<AirlineBean> getAllAirlines() {
+
+            String url = "http://10.79.10.65:8080/axis2/services/EasternAirlineServices?wsdl";  
+            String url2 = "http://10.79.10.65:8080/axis2/services/ChinaAirlineServices?wsdl";
+            String url3 = "http://10.79.10.65:8080/axis2/services/HainanAirlineServices?wsdl";
+            
+            List<AirlineBean> airlinelist = getAirlineByCompany(url);
+            List<AirlineBean> airlinelist2 = getAirlineByCompany(url2);
+            List<AirlineBean> airlinelist3 = getAirlineByCompany(url3);
+            
+            airlinelist.addAll(airlinelist2);
+            airlinelist.addAll(airlinelist3);
+            return airlinelist;
 	}
 }
