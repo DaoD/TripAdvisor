@@ -12,6 +12,7 @@
 		<div class="ui fixed inverted menu">
 			<div class="header item">TripAdvisor</div>
 			<div class="active item">Client</div>
+			<a class="item" href="orderlist.jsp">Order</a>
 			<div class="right menu">
 				<div class="item"><% out.print((String)session.getAttribute("username")); %></div>
 				<a class="item" href="signout.jsp">Sign Out</a>
@@ -46,45 +47,44 @@
 			<div class="ui cards">
 				<div class="card">
 					<div class="content">
-						<a href=""><i class="right floated info icon"></i></a>
-						<div class="header">Beijing</div>
+						<a href="orderdetail.jsp?orderid=7&hotplan=1"><i class="right floated info icon"></i></a>
+						<div class="header">Beijing 7-days Trip for Couple</div>
+						<div class="meta">Booking Times: 700+</div>
+						<div class="description">
+							<div class="ui list">
+								<div class="item">Round-trip Flight Ticket</div>
+								<div class="item">High Cost-performance Hotel</div>
+								<div class="item">Great Attractions</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="content">
+						<a href="orderdetail.jsp?orderid=8&hotplan=1"><i class="right floated info icon"></i></a>
+						<div class="header">Beijing 5-days Trip for Single</div>
 						<div class="meta">Booking Times: 200+</div>
 						<div class="description">
 							<div class="ui list">
-								<div class="item">Flight</div>
-								<div class="item">Hotel</div>
-								<div class="item">Car</div>
-								<div class="item">Sightseeing</div>
+								<div class="item">Round-trip Flight Ticket</div>
+								<div class="item">5-star Hotel</div>
+								<div class="item">Maserati Quattroporte</div>
+								<div class="item">Most Famous Attractions</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="card">
 					<div class="content">
-						<a href=""><i class="right floated info icon"></i></a>
-						<div class="header">Shanghai</div>
-						<div class="meta">Booking Times: 300+</div>
+						<a href="orderdetail.jsp?orderid=9&hotplan=1"><i class="right floated info icon"></i></a>
+						<div class="header">Shanghai 6-days Trip for Family</div>
+						<div class="meta">Booking Times: 100+</div>
 						<div class="description">
 							<div class="ui list">
-								<div class="item">Flight</div>
-								<div class="item">Hotel</div>
-								<div class="item">Car</div>
-								<div class="item">Sightseeing</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card">
-					<div class="content">
-						<a href=""><i class="right floated info icon"></i></a>
-						<div class="header">Guangzhou</div>
-						<div class="meta">Booking Times: 300+</div>
-						<div class="description">
-							<div class="ui list">
-								<div class="item">Flight</div>
-								<div class="item">Hotel</div>
-								<div class="item">Car</div>
-								<div class="item">Sightseeing</div>
+								<div class="item">Round-trip Flight Ticket</div>
+								<div class="item">Family room</div>
+								<div class="item">Economy car</div>
+								<div class="item">All Famous Attractions</div>
 							</div>
 						</div>
 					</div>

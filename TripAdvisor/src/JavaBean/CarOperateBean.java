@@ -13,9 +13,9 @@ import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 
-public class HotelOperateBean {
+public class CarOperateBean {
 	
-	private List<HotelBean> getHotelByCondition(String url, String location, String range1_, String range2_) {
+	private List<CarBean> getCarByCondition(String url, String location, String range1_, String range2_, String passengernum) {
 		OMElement result = null;  
 		try {  
 
@@ -31,7 +31,7 @@ public class HotelOperateBean {
  
             OMNamespace omNs = fac.createOMNamespace(tns, "");
 
-            OMElement method = fac.createOMElement("queryHotelByAll", omNs);
+            OMElement method = fac.createOMElement("queryCarByAll", omNs);
             
             OMElement symbol1 = fac.createOMElement("location", omNs);
             symbol1.addChild(fac.createOMText(symbol1, location));
@@ -45,54 +45,61 @@ public class HotelOperateBean {
             symbol3.addChild(fac.createOMText(symbol3, range2_));
             method.addChild(symbol3);
             
+            OMElement symbol4 = fac.createOMElement("num1", omNs);
+            symbol4.addChild(fac.createOMText(symbol4, passengernum));
+            method.addChild(symbol4);
+            
             method.build();
   
             result = sender.sendReceive(method);
-            List<HotelBean> hotellist = new ArrayList<HotelBean>();
+            List<CarBean> carlist = new ArrayList<CarBean>();
             
             Iterator iterator =  result.getChildElements();
             while (iterator.hasNext()) {
             	OMElement omNode = (OMElement) iterator.next();
             	Iterator iterator2 = omNode.getChildElements();
-            	HotelBean tmpHotelBean = new HotelBean();
+            	CarBean tmpCarBean = new CarBean();
             	while(iterator2.hasNext()) {
             		OMElement omNode2 = (OMElement) iterator2.next();
             		switch (omNode2.getLocalName()) {
             		case "id":
-            			tmpHotelBean.setId(omNode2.getText());
+            			tmpCarBean.setId(omNode2.getText());
             			break;
-					case "address":
-						tmpHotelBean.setAddress(omNode2.getText());
+					case "companyname":
+						tmpCarBean.setCompanyname(omNode2.getText());
 						break;
 					case "location":
-						tmpHotelBean.setLocation(omNode2.getText());
-						break;
-					case "type":
-						tmpHotelBean.setRoomtype(omNode2.getText());
+						tmpCarBean.setLocation(omNode2.getText());
 						break;
 					case "name":
-						tmpHotelBean.setName(omNode2.getText());
+						tmpCarBean.setName(omNode2.getText());
 						break;
-					case "star":
-						tmpHotelBean.setStar(omNode2.getText());
+					case "person":
+						tmpCarBean.setPerson(omNode2.getText());
+						break;
+					case "shape":
+						tmpCarBean.setShape(omNode2.getText());
+						break;
+					case "type":
+						tmpCarBean.setType(omNode2.getText());
 						break;
 					case "price":
-						tmpHotelBean.setPrice(omNode2.getText());
+						tmpCarBean.setPrice(omNode2.getText());
 						break;
 					default:
 						break;
 					}
             	}
-            	hotellist.add(tmpHotelBean);
+            	carlist.add(tmpCarBean);
             }
-            return hotellist;    
+            return carlist;    
         } catch (AxisFault axisFault) {  
             axisFault.printStackTrace();  
-            return new ArrayList<HotelBean>();
+            return new ArrayList<CarBean>();
         }  
 	}
 	
-	private List<HotelBean> getHotelByCompany(String url) {
+	private List<CarBean> getCarByCompany(String url) {
 		OMElement result = null;  
 		try {  
 
@@ -108,89 +115,80 @@ public class HotelOperateBean {
  
             OMNamespace omNs = fac.createOMNamespace(tns, "");
 
-            OMElement method = fac.createOMElement("queryHotel", omNs);
+            OMElement method = fac.createOMElement("query", omNs);
             method.build();
   
             result = sender.sendReceive(method);
-            List<HotelBean> hotellist = new ArrayList<HotelBean>();
+            List<CarBean> carlist = new ArrayList<CarBean>();
             
             Iterator iterator =  result.getChildElements();
             while (iterator.hasNext()) {
             	OMElement omNode = (OMElement) iterator.next();
             	Iterator iterator2 = omNode.getChildElements();
-            	HotelBean tmpHotelBean = new HotelBean();
+            	CarBean tmpCarBean = new CarBean();
             	while(iterator2.hasNext()) {
             		OMElement omNode2 = (OMElement) iterator2.next();
             		switch (omNode2.getLocalName()) {
             		case "id":
-            			tmpHotelBean.setId(omNode2.getText());
+            			tmpCarBean.setId(omNode2.getText());
             			break;
-					case "address":
-						tmpHotelBean.setAddress(omNode2.getText());
+					case "companyname":
+						tmpCarBean.setCompanyname(omNode2.getText());
 						break;
 					case "location":
-						tmpHotelBean.setLocation(omNode2.getText());
-						break;
-					case "type":
-						tmpHotelBean.setRoomtype(omNode2.getText());
+						tmpCarBean.setLocation(omNode2.getText());
 						break;
 					case "name":
-						tmpHotelBean.setName(omNode2.getText());
+						tmpCarBean.setName(omNode2.getText());
 						break;
-					case "star":
-						tmpHotelBean.setStar(omNode2.getText());
+					case "person":
+						tmpCarBean.setPerson(omNode2.getText());
+						break;
+					case "shape":
+						tmpCarBean.setShape(omNode2.getText());
+						break;
+					case "type":
+						tmpCarBean.setType(omNode2.getText());
 						break;
 					case "price":
-						tmpHotelBean.setPrice(omNode2.getText());
+						tmpCarBean.setPrice(omNode2.getText());
 						break;
 					default:
 						break;
 					}
             	}
-            	hotellist.add(tmpHotelBean);
+            	carlist.add(tmpCarBean);
             }
-            return hotellist;    
+            return carlist;    
         } catch (AxisFault axisFault) {  
             axisFault.printStackTrace();  
             return null;
         }  
 	}
 	
-	public List<HotelBean> getAllHotels() {
-		String url = "http://10.79.10.65:8080/axis2/services/HepingHotelServices?wsdl";
-		String url2 = "http://10.79.10.65:8080/axis2/services/RujiaHotelServices?wsdl";
-		String url3 = "http://10.79.10.65:8080/axis2/services/ShouduHotelServices?wsdl";
-		String url4 = "http://10.79.10.65:8080/axis2/services/XierdunHotelServices?wsdl";
+	public List<CarBean> getAllCars() {
+		String url = "http://10.79.10.65:8080/axis2/services/SzCarServices?wsdl";
+		String url2 = "http://10.79.10.65:8080/axis2/services/OhCarServices?wsdl";
 		
-		List<HotelBean> hotellist = getHotelByCompany(url);
-		List<HotelBean> hotellist2 = getHotelByCompany(url2);
-		List<HotelBean> hotellist3 = getHotelByCompany(url3);
-		List<HotelBean> hotellist4 = getHotelByCompany(url4);
+		List<CarBean> carlist = getCarByCompany(url);
+		List<CarBean> carlist2 = getCarByCompany(url2);
 		
-		hotellist.addAll(hotellist2);
-		hotellist.addAll(hotellist3);
-		hotellist.addAll(hotellist4);
+		carlist.addAll(carlist2);
 		
-		return hotellist;
+		return carlist;
 		
 	}
 	
-	public List<HotelBean> getAllHotelsByCondition(String location, String range1_, String range2_) {
-		String url = "http://10.79.10.65:8080/axis2/services/HepingHotelServices?wsdl";
-		String url2 = "http://10.79.10.65:8080/axis2/services/RujiaHotelServices?wsdl";
-		String url3 = "http://10.79.10.65:8080/axis2/services/ShouduHotelServices?wsdl";
-		String url4 = "http://10.79.10.65:8080/axis2/services/XierdunHotelServices?wsdl";
+	public List<CarBean> getAllCarsByCondition(String location, String range1_, String range2_, String passengersnum) {
+		String url = "http://10.79.10.65:8080/axis2/services/SzCarServices?wsdl";
+		String url2 = "http://10.79.10.65:8080/axis2/services/OhCarServices?wsdl";
 		
-		List<HotelBean> hotellist = getHotelByCondition(url, location, range1_, range2_);
-		List<HotelBean> hotellist2 = getHotelByCondition(url2, location, range1_, range2_);
-		List<HotelBean> hotellist3 = getHotelByCondition(url3, location, range1_, range2_);
-		List<HotelBean> hotellist4 = getHotelByCondition(url4, location, range1_, range2_);
+		List<CarBean> carlist = getCarByCondition(url, location, range1_, range2_, passengersnum);
+		List<CarBean> carlist2 = getCarByCondition(url2, location, range1_, range2_, passengersnum);
 		
-		hotellist.addAll(hotellist2);
-		hotellist.addAll(hotellist3);
-		hotellist.addAll(hotellist4);
+		carlist.addAll(carlist2);
 		
-		return hotellist;
+		return carlist;
 		
 	}
 }

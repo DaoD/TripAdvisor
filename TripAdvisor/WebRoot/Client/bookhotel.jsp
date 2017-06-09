@@ -1,10 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
-<%-- <%@ page import="JavaBean.AirlineOperateBean"%> --%>
-<%-- <%@ page import="JavaBean.AirlineBean"%> --%>
-<%-- <jsp:useBean id="airlineBean" class="JavaBean.AirlineBean" scope="request" /> --%>
-<%-- <jsp:useBean id="airlineOperateBean" class="JavaBean.AirlineOperateBean" scope="request" /> --%>
 
 <!DOCTYPE html>
 <html>
@@ -126,7 +122,6 @@
 							<input type="text" placeholder="number" name="number" value="<% out.print(request.getAttribute("number")); %>" required>
 						</div>
 					</div>
-					<input type="hidden" name="first" value="1">
 					<button class="ui teal button">
 						<i class="search icon"></i>
 						Search
@@ -153,15 +148,18 @@
 								<td id="roomtype${hotel.id}">${hotel.roomtype}</td>
 								<td id="price${hotel.id}">${hotel.price}</td>
 								<td class="selectable"><a onclick="bookhotel(${hotel.id});">Book</a></td>
+								<td hidden="hidden" id="fromdate${hotel.id}"><% out.print(request.getAttribute("fromdate")); %></td>
+								<td hidden="hidden" id="todate${hotel.id}"><% out.print(request.getAttribute("todate")); %></td>
+								<td hidden="hidden" id="number${hotel.id}"><% out.print(request.getAttribute("number")); %></td>
 								<td hidden="hidden" id="location${hotel.id}">${hotel.location}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 				<h4 class="ui dividing header">Hotel Information</h4>
-				<form action="bookahotel.jsp">
+				<form action="book.jsp">
 					<div class="ui card">
-						<div class="content"">
+						<div class="content">
 							<div class="header" id="cardheader"></div>
 							<div class="meta" id="cardmeta"></div>
 							<div class="description" id="carddescription"></div>
@@ -170,11 +168,18 @@
 							<i class="add to calendar icon"></i>
 							Book it!
 						</button>
-<!-- 						<input type="hidden" value="" name="flightno"> -->
-<!-- 						<input type="hidden" value="" name="flightclass"> -->
-<!-- 						<input type="hidden" value="" name="date"> -->
-<!-- 						<input type="hidden" value="" name="number"> -->
-<!-- 						<input type="hidden" value="" name="price"> -->
+						<input type="hidden" value="" name="hotelname" id="bookhotelname">
+						<input type="hidden" value="" name="hoteltype" id="bookhoteltype">
+						<input type="hidden" value="" name="hotelfromdate" id="bookhotelfromdate">
+						<input type="hidden" value="" name="hoteltodate" id="bookhoteltodate">
+						<input type="hidden" value="" name="hoteldays" id="bookhoteldays">
+						<input type="hidden" value="" name="hotelprice" id="bookhotelprice">
+						<input type="hidden" value="" name="hotelnumber" id="bookhotelnumber">
+						<input type="hidden" value="" name="hotelid" id="bookhotelid">
+						<input type="hidden" value="" name="hoteladderss" id="bookhoteladdress">
+						<input type="hidden" value="" name="hotelstar" id="bookhotelstar">
+						<input type="hidden" value="" name="hotellocation" id="bookhotellocation">
+						<input type="hidden" value="2" name="step">
 					</div>
 				</form>
 				<h4 class="ui dividing header">Skip this step</h4>

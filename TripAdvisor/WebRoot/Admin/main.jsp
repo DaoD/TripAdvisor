@@ -47,13 +47,14 @@
 		%>
 		<div class="ui grid" id="mainframe">
 			<div class="row">
-				<div class="four wide column">
+				<div class="two wide column">
 					<div class="ui vertical pointing menu">
 						<a class="active item" href="main.jsp">Profile</a>
 						<a class="item" href="service.jsp">Service</a>
+						<a class="item" href="orders.jsp">Orders</a>
 					</div>
 				</div>
-				<div class="twelve wide stretched column">
+				<div class="fourteen wide stretched column">
 					<div class="ui segment">
 						<form class="ui form" action="saveprofile.jsp">
 							<div class="ui clearing segment">

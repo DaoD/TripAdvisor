@@ -17,3 +17,6 @@ body {
 #message {
 	height: 100%;
 }
+.ui.vertical.menu {
+	width: auto;
+}

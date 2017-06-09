@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %> 
-<%@ page import="JavaBean.HotelBean"%>
-<%@ page import="JavaBean.HotelOperateBean"%>
-<jsp:useBean id="hotelBean" class="JavaBean.HotelBean" scope="request" />
-<jsp:useBean id="hotelOperateBean" class="JavaBean.HotelOperateBean" scope="request" />
+<%@ page import="JavaBean.CarBean"%>
+<%@ page import="JavaBean.CarOperateBean"%>
+<jsp:useBean id="carBean" class="JavaBean.CarBean" scope="request" />
+<jsp:useBean id="carOperateBean" class="JavaBean.CarOperateBean" scope="request" />
 
 <!DOCTYPE html>
 <html>
@@ -19,14 +19,14 @@
 			String todate = request.getParameter("todate");
 			String startprice = request.getParameter("startprice");
 			String endprice = request.getParameter("endprice");
-			String number = request.getParameter("number");
+			String passengernumber = request.getParameter("passengernumber");
 			
 			request.setAttribute("city", city);
 			request.setAttribute("fromdate", fromdate);
 			request.setAttribute("todate", todate);
 			request.setAttribute("startprice", startprice);
 			request.setAttribute("endprice", endprice);
-			request.setAttribute("number", number); 
+			request.setAttribute("passengernumber", passengernumber); 
 			
 			if(city.equals("bj")) {
 				city = "北京";
@@ -34,12 +34,12 @@
 			else {
 				city = "上海";
 			}
+		
+			List<CarBean> carlist = carOperateBean.getAllCarsByCondition(city, startprice, endprice, passengernumber);
 			
-			List<HotelBean> hotellist = hotelOperateBean.getAllHotelsByCondition(city, startprice, endprice);
+			request.setAttribute("carlist", carlist);
 			
-			request.setAttribute("hotellist", hotellist);
-			
-			request.getRequestDispatcher("bookhotel.jsp").forward(request,response);
+			request.getRequestDispatcher("bookcar.jsp").forward(request,response);
 			
 		 %>
 	</body>

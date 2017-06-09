@@ -1,10 +1,8 @@
-<%@ page import="JavaBean.AirlineOperateBean"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
-<%@ page import="JavaBean.AirlineBean"%>
-<jsp:useBean id="airlineBean" class="JavaBean.AirlineBean" scope="request" />
-<jsp:useBean id="airlineOperateBean" class="JavaBean.AirlineOperateBean" scope="request" />
+<%@page import="JavaBean.BookListBean"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -47,6 +45,8 @@
 			}
 			else {
 				request.getAttribute("airlinelist"); 
+				BookListBean bookListBean = new BookListBean();
+				session.setAttribute("booklist", bookListBean);
 				if(request.getAttribute("fromcity") == null) {
 					request.setAttribute("fromcity", "");
 				}
@@ -181,6 +181,7 @@
 								<td id="price${airline.id}">${airline.price}</td>
 								<td class="selectable"><a onclick="bookflight(${airline.id});">Book</a></td>
 								<td hidden="hidden" id="departdate${airline.id}"><% out.print(request.getAttribute("departdate")); %></td>
+								<td hidden="hidden" id="number${airline.id}"><% out.print(request.getAttribute("number")); %></td>
 								<td hidden="hidden" id="fromcity${airline.id}">${airline.fromcity}</td>
 								<td hidden="hidden" id="tocity${airline.id}">${airline.tocity}</td>
 							</tr>
@@ -188,9 +189,9 @@
 					</tbody>
 				</table>
 				<h4 class="ui dividing header">Flight Information</h4>
-				<form action="bookflight.jsp">
+				<form action="book.jsp">
 					<div class="ui card">
-						<div class="content"">
+						<div class="content">
 							<div class="header" id="cardheader"></div>
 							<div class="meta" id="cardmeta"></div>
 							<div class="description" id="carddescription"></div>
@@ -199,11 +200,19 @@
 							<i class="add to calendar icon"></i>
 							Book it!
 						</button>
-						<input type="hidden" value="" name="flightno">
-						<input type="hidden" value="" name="flightclass">
-						<input type="hidden" value="" name="date">
-						<input type="hidden" value="" name="number">
-						<input type="hidden" value="" name="price">
+						<input type="hidden" value="" name="airline" id="bookairline">
+						<input type="hidden" value="" name="flightid" id="bookflightid">
+						<input type="hidden" value="" name="flightdate" id="bookflightdate">
+						<input type="hidden" value="" name="flightnumber" id="bookflightnumber">
+						<input type="hidden" value="" name="flightprice" id="bookflightprice">
+						<input type="hidden" value="" name="flightno" id="bookflightno">
+						<input type="hidden" value="" name="flightclass" id="bookflightclass">
+						<input type="hidden" value="" name="flightdeparttime" id="bookflightdeparttime">
+						<input type="hidden" value="" name="flightarrivetime" id="bookflightarrivetime">
+						<input type="hidden" value="" name="flighttime" id="bookflighttime">
+						<input type="hidden" value="" name="flightfromcity" id="bookfromcity">
+						<input type="hidden" value="" name="flighttocity" id="booktocity">
+						<input type="hidden" value="0" name="step">
 					</div>
 				</form>
 				

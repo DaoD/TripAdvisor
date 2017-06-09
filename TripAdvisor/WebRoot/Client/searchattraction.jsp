@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %> 
-<%@ page import="JavaBean.HotelBean"%>
-<%@ page import="JavaBean.HotelOperateBean"%>
-<jsp:useBean id="hotelBean" class="JavaBean.HotelBean" scope="request" />
-<jsp:useBean id="hotelOperateBean" class="JavaBean.HotelOperateBean" scope="request" />
+<%@ page import="JavaBean.AttractionBean"%>
+<%@ page import="JavaBean.AttractionOperateBean"%>
+<jsp:useBean id="attractionBean" class="JavaBean.AttractionBean" scope="request" />
+<jsp:useBean id="attractionOperateBean" class="JavaBean.AttractionOperateBean" scope="request" />
 
 <!DOCTYPE html>
 <html>
@@ -15,15 +15,14 @@
 	<body>
 		<%
 			String city = request.getParameter("city");
-			String fromdate = request.getParameter("fromdate");
-			String todate = request.getParameter("todate");
+			String date = request.getParameter("date");
 			String startprice = request.getParameter("startprice");
 			String endprice = request.getParameter("endprice");
 			String number = request.getParameter("number");
+
 			
 			request.setAttribute("city", city);
-			request.setAttribute("fromdate", fromdate);
-			request.setAttribute("todate", todate);
+			request.setAttribute("date", date);
 			request.setAttribute("startprice", startprice);
 			request.setAttribute("endprice", endprice);
 			request.setAttribute("number", number); 
@@ -35,11 +34,10 @@
 				city = "上海";
 			}
 			
-			List<HotelBean> hotellist = hotelOperateBean.getAllHotelsByCondition(city, startprice, endprice);
+			List<AttractionBean> attractionlist = attractionOperateBean.getAllAttractionByCondition(city, startprice, endprice);
+			request.setAttribute("attractionlist", attractionlist);
 			
-			request.setAttribute("hotellist", hotellist);
-			
-			request.getRequestDispatcher("bookhotel.jsp").forward(request,response);
+			request.getRequestDispatcher("bookattractions.jsp").forward(request,response);
 			
 		 %>
 	</body>

@@ -13,9 +13,9 @@ import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 
-public class HotelOperateBean {
-	
-	private List<HotelBean> getHotelByCondition(String url, String location, String range1_, String range2_) {
+public class AttractionOperateBean {
+	public List<AttractionBean> getAllAttractionByCondition(String location, String range1_, String range2_) {
+		String url = "http://10.79.10.65:8080/axis2/services/AttractionServices?wsdl";
 		OMElement result = null;  
 		try {  
 
@@ -31,7 +31,7 @@ public class HotelOperateBean {
  
             OMNamespace omNs = fac.createOMNamespace(tns, "");
 
-            OMElement method = fac.createOMElement("queryHotelByAll", omNs);
+            OMElement method = fac.createOMElement("queryAttractionByAll", omNs);
             
             OMElement symbol1 = fac.createOMElement("location", omNs);
             symbol1.addChild(fac.createOMText(symbol1, location));
@@ -48,51 +48,43 @@ public class HotelOperateBean {
             method.build();
   
             result = sender.sendReceive(method);
-            List<HotelBean> hotellist = new ArrayList<HotelBean>();
+            List<AttractionBean> attractionlist = new ArrayList<AttractionBean>();
             
             Iterator iterator =  result.getChildElements();
             while (iterator.hasNext()) {
             	OMElement omNode = (OMElement) iterator.next();
             	Iterator iterator2 = omNode.getChildElements();
-            	HotelBean tmpHotelBean = new HotelBean();
+            	AttractionBean tmpAttractionBean = new AttractionBean();
             	while(iterator2.hasNext()) {
             		OMElement omNode2 = (OMElement) iterator2.next();
             		switch (omNode2.getLocalName()) {
             		case "id":
-            			tmpHotelBean.setId(omNode2.getText());
+            			tmpAttractionBean.setId(omNode2.getText());
             			break;
-					case "address":
-						tmpHotelBean.setAddress(omNode2.getText());
-						break;
 					case "location":
-						tmpHotelBean.setLocation(omNode2.getText());
-						break;
-					case "type":
-						tmpHotelBean.setRoomtype(omNode2.getText());
+						tmpAttractionBean.setLocation(omNode2.getText());
 						break;
 					case "name":
-						tmpHotelBean.setName(omNode2.getText());
-						break;
-					case "star":
-						tmpHotelBean.setStar(omNode2.getText());
+						tmpAttractionBean.setName(omNode2.getText());
 						break;
 					case "price":
-						tmpHotelBean.setPrice(omNode2.getText());
+						tmpAttractionBean.setPrice(omNode2.getText());
 						break;
 					default:
 						break;
 					}
             	}
-            	hotellist.add(tmpHotelBean);
+            	attractionlist.add(tmpAttractionBean);
             }
-            return hotellist;    
+            return attractionlist;    
         } catch (AxisFault axisFault) {  
             axisFault.printStackTrace();  
-            return new ArrayList<HotelBean>();
+            return new ArrayList<AttractionBean>();
         }  
 	}
 	
-	private List<HotelBean> getHotelByCompany(String url) {
+	public List<AttractionBean> getAllAttractions() {
+		String url = "http://10.79.10.65:8080/axis2/services/AttractionServices?wsdl";
 		OMElement result = null;  
 		try {  
 
@@ -108,89 +100,42 @@ public class HotelOperateBean {
  
             OMNamespace omNs = fac.createOMNamespace(tns, "");
 
-            OMElement method = fac.createOMElement("queryHotel", omNs);
+            OMElement method = fac.createOMElement("queryAttraction", omNs);
             method.build();
   
             result = sender.sendReceive(method);
-            List<HotelBean> hotellist = new ArrayList<HotelBean>();
+            List<AttractionBean> attractionlist = new ArrayList<AttractionBean>();
             
             Iterator iterator =  result.getChildElements();
             while (iterator.hasNext()) {
             	OMElement omNode = (OMElement) iterator.next();
             	Iterator iterator2 = omNode.getChildElements();
-            	HotelBean tmpHotelBean = new HotelBean();
+            	AttractionBean tmpAttractionBean = new AttractionBean();
             	while(iterator2.hasNext()) {
             		OMElement omNode2 = (OMElement) iterator2.next();
             		switch (omNode2.getLocalName()) {
             		case "id":
-            			tmpHotelBean.setId(omNode2.getText());
+            			tmpAttractionBean.setId(omNode2.getText());
             			break;
-					case "address":
-						tmpHotelBean.setAddress(omNode2.getText());
-						break;
 					case "location":
-						tmpHotelBean.setLocation(omNode2.getText());
-						break;
-					case "type":
-						tmpHotelBean.setRoomtype(omNode2.getText());
+						tmpAttractionBean.setLocation(omNode2.getText());
 						break;
 					case "name":
-						tmpHotelBean.setName(omNode2.getText());
-						break;
-					case "star":
-						tmpHotelBean.setStar(omNode2.getText());
+						tmpAttractionBean.setName(omNode2.getText());
 						break;
 					case "price":
-						tmpHotelBean.setPrice(omNode2.getText());
+						tmpAttractionBean.setPrice(omNode2.getText());
 						break;
 					default:
 						break;
 					}
             	}
-            	hotellist.add(tmpHotelBean);
+            	attractionlist.add(tmpAttractionBean);
             }
-            return hotellist;    
+            return attractionlist;    
         } catch (AxisFault axisFault) {  
             axisFault.printStackTrace();  
             return null;
         }  
-	}
-	
-	public List<HotelBean> getAllHotels() {
-		String url = "http://10.79.10.65:8080/axis2/services/HepingHotelServices?wsdl";
-		String url2 = "http://10.79.10.65:8080/axis2/services/RujiaHotelServices?wsdl";
-		String url3 = "http://10.79.10.65:8080/axis2/services/ShouduHotelServices?wsdl";
-		String url4 = "http://10.79.10.65:8080/axis2/services/XierdunHotelServices?wsdl";
-		
-		List<HotelBean> hotellist = getHotelByCompany(url);
-		List<HotelBean> hotellist2 = getHotelByCompany(url2);
-		List<HotelBean> hotellist3 = getHotelByCompany(url3);
-		List<HotelBean> hotellist4 = getHotelByCompany(url4);
-		
-		hotellist.addAll(hotellist2);
-		hotellist.addAll(hotellist3);
-		hotellist.addAll(hotellist4);
-		
-		return hotellist;
-		
-	}
-	
-	public List<HotelBean> getAllHotelsByCondition(String location, String range1_, String range2_) {
-		String url = "http://10.79.10.65:8080/axis2/services/HepingHotelServices?wsdl";
-		String url2 = "http://10.79.10.65:8080/axis2/services/RujiaHotelServices?wsdl";
-		String url3 = "http://10.79.10.65:8080/axis2/services/ShouduHotelServices?wsdl";
-		String url4 = "http://10.79.10.65:8080/axis2/services/XierdunHotelServices?wsdl";
-		
-		List<HotelBean> hotellist = getHotelByCondition(url, location, range1_, range2_);
-		List<HotelBean> hotellist2 = getHotelByCondition(url2, location, range1_, range2_);
-		List<HotelBean> hotellist3 = getHotelByCondition(url3, location, range1_, range2_);
-		List<HotelBean> hotellist4 = getHotelByCondition(url4, location, range1_, range2_);
-		
-		hotellist.addAll(hotellist2);
-		hotellist.addAll(hotellist3);
-		hotellist.addAll(hotellist4);
-		
-		return hotellist;
-		
 	}
 }

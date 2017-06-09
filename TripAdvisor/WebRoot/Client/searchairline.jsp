@@ -23,7 +23,6 @@
 			String endprice = request.getParameter("endprice");
 			String isfirst = request.getParameter("first");
 			
-			List<AirlineBean> airlinelist = airlineOperateBean.getAllAirlines();
 			request.setAttribute("fromcity", fromcity);
 			request.setAttribute("tocity", tocity);
 			request.setAttribute("departdate", departdate);
@@ -31,6 +30,30 @@
 			request.setAttribute("flightclass", flightclass);
 			request.setAttribute("startprice", startprice);
 			request.setAttribute("endprice", endprice);
+
+			
+			if(fromcity.equals("bj")) {
+				fromcity = "北京";
+			}
+			else {
+				fromcity = "上海";
+			}
+			
+			if(tocity.equals("bj")) {
+				tocity = "北京";
+			}
+			else {
+				tocity = "上海";
+			}
+			
+			if(flightclass.equals("ec")) {
+				flightclass = "经济舱";
+			}
+			else {
+				flightclass = "商务舱";
+			}
+			
+			List<AirlineBean> airlinelist = airlineOperateBean.getAllAirlinesByCondition(fromcity, tocity, flightclass, startprice, endprice);
 			request.setAttribute("airlinelist", airlinelist); 
 			
 			if(isfirst.equals("0")) {

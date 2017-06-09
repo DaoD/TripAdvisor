@@ -50,13 +50,14 @@
 		%>
 		<div class="ui grid" id="mainframe">
 			<div class="row">
-				<div class="four wide column">
+				<div class="two wide column">
 					<div class="ui vertical pointing menu">
 						<a class="item" href="main.jsp">Profile</a>
 						<a class="active item" href="service.jsp">Service</a>
+						<a class="item" href="orders.jsp">Orders</a>
 					</div>
 				</div>
-				<div class="twelve wide stretched column" id="stickypart">
+				<div class="fourteen wide stretched column" id="stickypart">
 					<div class="ui segment">
 						<form class="ui form" action="addservice.jsp">
 							<h4 class="ui dividing header">
