@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dao.com" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" name="PlanC" targetNamespace="http://dao.com">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="AirChinaPLT">
+    <plnk:role name="AirChinaRole" portType="tns:ChinaAirlineServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="EasternAirlinePLT">
+    <plnk:role name="EasternAirlineRole" portType="tns:EasternAirlineServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="HomeinnsPLT">
+    <plnk:role name="HomeinnsRole" portType="tns:RujiaHotelServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="OneHighPLT">
+    <plnk:role name="OneHighRole" portType="tns:OhCarServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="CtripPLT">
+    <plnk:role name="CtripRole" portType="tns:AttractionServicesPortType"/>
+  </plnk:partnerLinkType>
+    <import location="http://10.79.10.65:8080/axis2/services/ChinaAirlineServices?wsdl" namespace="http://dao.com"/>
+    <import location="http://10.79.10.65:8080/axis2/services/EasternAirlineServices?wsdl" namespace="http://dao.com"/>
+    <import location="http://10.79.10.65:8080/axis2/services/RujiaHotelServices?wsdl" namespace="http://dao.com"/>
+    <import location="http://10.79.10.65:8080/axis2/services/OhCarServices?wsdl" namespace="http://dao.com"/>
+    <import location="http://10.79.10.65:8080/axis2/services/AttractionServices?wsdl" namespace="http://dao.com"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://dao.com">
+
+            <element name="PlanCRequest">
+                <complexType>
+                    <sequence>
+                        <element name="input" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="PlanCResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="PlanCRequestMessage">
+        <part element="tns:PlanCRequest" name="payload"/>
+    </message>
+    <message name="PlanCResponseMessage">
+        <part element="tns:PlanCResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the PlanC BPEL process -->
+    <portType name="PlanC">
+        <operation name="process">
+            <input message="tns:PlanCRequestMessage"/>
+            <output message="tns:PlanCResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="PlanC">
+        <plnk:role name="PlanCProvider" portType="tns:PlanC"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="PlanCBinding" type="tns:PlanC">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://dao.com/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="PlanCService">
+    	<port binding="tns:PlanCBinding" name="PlanCPort">
+    		<soap:address location="http://localhost:8080/ode/processes/PlanC"/>
+    	</port>
+    </service>
+</definitions>

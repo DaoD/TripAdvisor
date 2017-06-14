@@ -59,3 +59,4 @@ CREATE TABLE one_order (
   PRIMARY KEY(id),
   FOREIGN KEY (userid) REFERENCES user(userid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

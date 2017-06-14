@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:dao.com="http://dao.com">
+  <process name="dao.com:PlanB">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="dao.com:PlanBService" port="PlanBPort"/>
+    </provide>
+    <invoke partnerLink="EasternAirlinePL">
+      <service name="dao.com:EasternAirlineServices" port="EasternAirlineServicesHttpSoap11Endpoint"/>
+    </invoke>
+    <invoke partnerLink="HainanArilinePL">
+      <service name="dao.com:HainanAirlineServices" port="HainanAirlineServicesHttpSoap11Endpoint"/>
+    </invoke>
+    <invoke partnerLink="HomeinnsPL">
+      <service name="dao.com:RujiaHotelServices" port="RujiaHotelServicesHttpSoap11Endpoint"/>
+    </invoke>
+    <invoke partnerLink="CtripPL">
+      <service name="dao.com:AttractionServices" port="AttractionServicesHttpSoap11Endpoint"/>
+    </invoke>
+  </process>
+</deploy>

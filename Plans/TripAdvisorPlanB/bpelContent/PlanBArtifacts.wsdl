@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dao.com" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" name="PlanB" targetNamespace="http://dao.com">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="EasternAirlinePLT">
+    <plnk:role name="EasternAirlineRole" portType="tns:EasternAirlineServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="HainanArilinePLT">
+    <plnk:role name="HainanAirlineRole" portType="tns:HainanAirlineServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="HomeinnsPLT">
+    <plnk:role name="HomeinnsRole" portType="tns:RujiaHotelServicesPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="CtripPLT">
+    <plnk:role name="CtripRole" portType="tns:AttractionServicesPortType"/>
+  </plnk:partnerLinkType>
+    <import location="http://10.79.10.65:8080/axis2/services/EasternAirlineServices?wsdl" namespace="http://dao.com"/>
+    <import location="http://10.79.10.65:8080/axis2/services/HainanAirlineServices?wsdl" namespace="http://dao.com"/>
+    <import location="http://10.79.10.65:8080/axis2/services/RujiaHotelServices?wsdl" namespace="http://dao.com"/>
+    <import location="http://10.79.10.65:8080/axis2/services/AttractionServices?wsdl" namespace="http://dao.com"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://dao.com">
+
+            <element name="PlanBRequest">
+                <complexType>
+                    <sequence>
+                        <element name="input" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="PlanBResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="PlanBRequestMessage">
+        <part element="tns:PlanBRequest" name="payload"/>
+    </message>
+    <message name="PlanBResponseMessage">
+        <part element="tns:PlanBResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the PlanB BPEL process -->
+    <portType name="PlanB">
+        <operation name="process">
+            <input message="tns:PlanBRequestMessage"/>
+            <output message="tns:PlanBResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="PlanB">
+        <plnk:role name="PlanBProvider" portType="tns:PlanB"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="PlanBBinding" type="tns:PlanB">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://dao.com/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="PlanBService">
+    	<port binding="tns:PlanBBinding" name="PlanBPort">
+    		<soap:address location="http://localhost:8080/ode/processes/PlanB"/>
+    	</port>
+    </service>
+</definitions>
