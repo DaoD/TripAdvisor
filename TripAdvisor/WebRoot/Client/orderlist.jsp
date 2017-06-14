@@ -22,7 +22,6 @@
 		</div>
 		<% 
 			String username = (String)session.getAttribute("username");
-			int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
 			if(username == null) {
 				%> 
 					<div class="ui middle aligned center aligned grid">
@@ -43,6 +42,7 @@
 				<%
 			}
 			else {
+				int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
 				OrderOperateBean orderOperateBean = new OrderOperateBean();
 				List<String> orderList = orderOperateBean.getUserOrderList(userid);
 				request.setAttribute("orderlist", orderList); 

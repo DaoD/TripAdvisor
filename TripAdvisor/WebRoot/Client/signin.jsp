@@ -34,7 +34,7 @@
 					        	<input type="password" name="password" placeholder="password">
 					      	</div>
 					    </div>
-					    <input type="hidden" name="type" value="0" />
+					    <input type="hidden" name="type" value="1" />
 				    	<input type="submit" class="ui fluid large teal submit button" value="log in" />
 				  	</div>
 				</form>

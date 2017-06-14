@@ -23,7 +23,6 @@
 		</div>
 		<% 
 			String username = (String)session.getAttribute("username");
-			int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
 			if(username == null) {
 				%> 
 					<div class="ui middle aligned center aligned grid">
@@ -44,6 +43,7 @@
 				<%
 			}
 			else {
+			int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
 			int orderid = Integer.parseInt(request.getParameter("orderid"));
 			int hotplan = 0;
 			if(request.getParameter("hotplan") != null) {
@@ -51,11 +51,13 @@
 			}
 			OrderOperateBean orderOperateBean = new OrderOperateBean();
 			BookListBean bookListBean = orderOperateBean.getOrderList(orderid); 
+			session.setAttribute("booklist", bookListBean);
 			int totalprice = 0;
 		%>
 		<div class="ui container" id="maincontainer">
 			<h3 class="ui dividing header">Order Detail</h3> 
-			<div class="ui divided list">
+<!-- 			<div class="ui divided list"> -->
+			<form class="ui form" action="bookit.jsp">
 				<h4 class="ui dividing header">The services you have chosen:</h4>
 				<div class="ui one cards">
 					<% if(!bookListBean.getAirline1().equals("")) {%>
@@ -193,13 +195,20 @@
 				</div>
 				<h4 class="ui dividing header">Operate</h4>
 				<% if(hotplan == 1){ %> 
-				<a class="ui teal button" id="listsubmit" href="main.jsp">Go back</a>
-				<% }
+				<input type="hidden" value="<% out.print(orderid); %>" name="hotplan">
+<!-- 				<button class="ui teal button" id="listsubmit">Book it now</button> -->
+<!-- 				<a class="ui teal button" id="listsubmit" href="main.jsp">Go back</a> -->
+				<div class="ui buttons">
+					<a class="ui button" href="main.jsp">Go back</a>
+					<div class="or"></div>
+					<button class="ui positive button">Book it now</button>
+				</div>
+				<% } 
 				else { %>
 				<a class="ui teal button" id="listsubmit" href="orderlist.jsp">Go back</a>
 				<% } %>
-			</div>
-			
+<!-- 			</div> -->
+			</form>
 		</div>
 		<% } %>
 	</body>

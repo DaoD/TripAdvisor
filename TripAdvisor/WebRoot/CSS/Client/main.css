@@ -9,6 +9,7 @@ body > .grid {
 }
 #maincontainer {
 	padding-top: 80px;
+	padding-bottom: 10px;
 }
 .ui.container h3 {
 	font-size: 2em;

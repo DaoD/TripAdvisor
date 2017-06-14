@@ -782,6 +782,56 @@ public class BookListBean {
 			e.printStackTrace();
 		}
 	}
+	public void bookByBPEL(int userid) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tripadvisor?useSSL=true", "root", "zyt123456");
+			Statement stmt = conn.createStatement();
+			String queryline = "select max(orderid) from one_order";
+			ResultSet rs = stmt.executeQuery(queryline);
+			int orderid = 0;
+			if(rs.next()) {
+				orderid = Integer.parseInt(rs.getString("max(orderid)")) + 1;
+			}
+			if(!this.airline1.equals("")) {
+				String addline = "insert into one_order(`orderid`, `userid`, `ordertype`, `name`, `flightnumber`, `booktype`, `flightdeparttime`, `flightarrivetime`, `flighttime`, `flightfromcity`, `flighttocity`, `ordernum`, `orderprice`, `orderdate`"
+						+ ") values (\'" 
+						+ orderid + "\',\'" + userid + "\',\'" + 0 + "\',\'" + this.airline1 + "\',\'" + this.flightno1 + "\',\'" + this.flightclass1 + "\',\'" + this.flightdeparttime1 + "\',\'" + this.flightarrivetime1 + "\',\'" + this.flighttime1 + "\',\'" + this.flightfromcity1 + "\',\'" + this.flighttocity1 + "\',\'" + this.flightnum1 + "\',\'" + this.flightprice1 + "\',\'" + this.flightdate1 + "\')";
+				stmt.executeUpdate(addline);
+			}
+			if(!this.airline2.equals("")) {
+				String addline = "insert into one_order(`orderid`, `userid`, `ordertype`, `name`, `flightnumber`, `booktype`, `flightdeparttime`, `flightarrivetime`, `flighttime`, `flightfromcity`, `flighttocity`, `ordernum`, `orderprice`, `orderdate`"
+						+ ") values (\'" 
+						+ orderid + "\',\'" + userid + "\',\'" + 1 + "\',\'" + this.airline2 + "\',\'" + this.flightno2 + "\',\'" + this.flightclass2 + "\',\'" + this.flightdeparttime2 + "\',\'" + this.flightarrivetime2 + "\',\'" + this.flighttime2 + "\',\'"  + this.flightfromcity2 + "\',\'" + this.flighttocity2 + "\',\'" + this.flightnum2 + "\',\'" + this.flightprice2 + "\',\'" + this.flightdate2 + "\')";
+				stmt.executeUpdate(addline);
+			}
+			if(!this.hotelname.equals("")) {
+				String addline = "insert into one_order(`orderid`, `userid`, `ordertype`, `name`, `booktype`, `ordernum`, `orderprice`, `orderfromdate`, `ordertodate`, `orderdays`, `orderaddress`, `hotelstar`, `ordercity`"
+						+ ") values (\'"
+						+ orderid + "\',\'" + userid + "\',\'" + 2 + "\',\'" + this.hotelname + "\',\'" + this.hoteltype + "\',\'" + this.hotelnumber + "\',\'" + this.hotelprice + "\',\'" + this.hotelfromdate + "\',\'" + this.hoteltodate + "\',\'" + this.hoteldays + "\',\'" + this.hoteladdress + "\',\'" + this.hotelstar + "\',\'" + this.hotellocation + "\')";
+				stmt.executeUpdate(addline);
+			}
+			if(!this.companyname.equals("")) {
+				String addline = "insert into one_order(`orderid`, `userid`, `ordertype`, `name`, `booktype`, `orderprice`, `orderfromdate`, `ordertodate`, `orderdays`, `ordercity`, `carbrand`, `carenginetype`, `carpassengers`"
+						+ ") values (\'"
+						+ orderid + "\',\'" + userid + "\',\'" + 3 + "\',\'" + this.companyname + "\',\'" + this.carshape + "\',\'" + this.carprice + "\',\'" + this.carfromdate + "\',\'" + this.cartodate + "\',\'" + this.cardays + "\',\'" + this.carcity + "\',\'" + this.carbrand + "\',\'" + this.carenginetype + "\',\'" + this.carpassengers + "\')";
+				stmt.executeUpdate(addline);
+			}
+			if(this.attractionname.size() != 0) {
+				for(int i = 0; i < this.attractionname.size(); i++) {
+					String addline = "insert into one_order(`orderid`, `userid`, `ordertype`, `name`, `ordernum`, `orderprice`, `orderdate`, `ordercity`"
+							+ ") values (\'"
+							+ orderid + "\',\'" + userid + "\',\'" + 4 + "\',\'" + this.attractionname.get(i) + "\',\'" + this.attractionnum.get(i) + "\',\'" + this.attractionprice.get(i) + "\',\'" + this.attractiondate.get(i) + "\',\'" + this.attractionlocation.get(i) + "\')";
+					stmt.executeUpdate(addline);
+				}
+			}
+			stmt.close();
+			conn.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 	
 	public void makeBpel(String name) {
 		//<bpel:process>

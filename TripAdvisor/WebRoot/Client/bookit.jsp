@@ -1,3 +1,4 @@
+<%@page import="JavaBean.BpelOperateBean"%>
 <%@ page import="JavaBean.BookListBean"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.*" %> 
@@ -12,12 +13,31 @@
 	</head>
 	<body>
 		<%
-			BookListBean bookListBean = (BookListBean)session.getAttribute("booklist");
-			int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
-			String username = (String)session.getAttribute("username");
-			bookListBean.book(userid);
-			bookListBean.makeBpel(username);
-			bookListBean.makeArticactsWsdl(username);
+			if(request.getParameter("hotplan") == null) {
+				BookListBean bookListBean = (BookListBean)session.getAttribute("booklist");
+				int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
+				String username = (String)session.getAttribute("username");
+				bookListBean.book(userid);
+				bookListBean.makeBpel(username);
+				bookListBean.makeArticactsWsdl(username);
+			}
+			else {
+				String orderid = (String)request.getParameter("hotplan");
+				BpelOperateBean bpelOperateBean = new BpelOperateBean();
+				if(orderid.equals("7")) {
+					bpelOperateBean.invokeBPEL(7);
+				}
+				else if(orderid.equals("8")) {
+					bpelOperateBean.invokeBPEL(8);
+				}
+				else {
+					bpelOperateBean.invokeBPEL(9);
+				}
+				BookListBean bookListBean = (BookListBean)session.getAttribute("booklist");
+				int userid = Integer.parseInt(String.valueOf(session.getAttribute("userid")));
+				bookListBean.bookByBPEL(userid);
+			}
+			
 		 %>
 		 <div class="ui middle aligned center aligned grid">
 			<div class="left aligned column">
